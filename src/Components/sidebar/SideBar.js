@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
+
 import "./SideBar.css";
 import { useCategoryContext } from "../../context/category-context/CategoryProvider";
 const SideBar = () => {
@@ -8,19 +9,19 @@ const SideBar = () => {
   return (
     <div className="side-bar-container">
       <button className="side-bar-btn">
-        <Link to="/additem">
-          <span className="side-bar-span">
-            <GoPlus />
-          </span>
-          ثبت ملک جدید
-        </Link>
-      </button>
-      <button className="side-bar-btn">
         <Link to="/addcategory">
           <span className="side-bar-span">
             <GoPlus />
           </span>
           ایجاد دسته بندی
+        </Link>
+      </button>
+      <button className="side-bar-btn">
+        <Link to="/additem">
+          <span className="side-bar-span">
+            <GoPlus />
+          </span>
+          ثبت ملک جدید
         </Link>
       </button>
       <div>

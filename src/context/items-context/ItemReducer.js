@@ -1,22 +1,23 @@
-const ItemReducer = (state, action) => {
+const CategoryReducer = (state, action) => {
   switch (action.type) {
-    case "ADD_TO_ITEMS": {
-      const cartProducts = [...state.cart];
-      const index = cartProducts.findIndex(
+    case "ADD_TO_PROPERTIES": {
+      console.log(state, action);
+      const propertyItems = [...state.properties];
+      const index = propertyItems.findIndex(
         (item) => item.name === action.payload.name
       );
       if (index < 0) {
-        cartProducts.push({ ...action.payload, quantity: 1 });
+        propertyItems.push({ ...action.payload });
       } else {
-        const updatedCart = { ...cartProducts[index] };
-        updatedCart.quantity++;
-        cartProducts[index] = updatedCart;
+        const updatedProperty = { ...propertyItems[index] };
+        updatedProperty.title = action.payload.title;
+        propertyItems[index] = updatedProperty;
       }
 
       return {
         ...state,
-        cart: cartProducts,
-        total: state.total + action.payload.offPrice,
+        properties: propertyItems,
+        total: state.total + action.payload.numberHandel,
       };
     }
 
@@ -25,4 +26,4 @@ const ItemReducer = (state, action) => {
   }
 };
 
-export default ItemReducer;
+export default CategoryReducer;

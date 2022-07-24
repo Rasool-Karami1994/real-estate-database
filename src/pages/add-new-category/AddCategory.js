@@ -8,7 +8,7 @@ import Input from "../../Components/Input";
 import { useCategoryContextActions } from "../../context/category-context/CategoryProvider";
 
 const validationSchema = Yup.object({
-  title: Yup.string().required("Email is required!"),
+  title: Yup.string().required("عنوان الزامیست!"),
 });
 
 const AddCategory = () => {

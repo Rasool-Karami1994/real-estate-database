@@ -3,18 +3,19 @@ import ItemReducer from "./ItemReducer";
 const ItemContext = createContext();
 const ItemContextDispatcher = createContext();
 const ItemProvider = ({ children }) => {
-  let lastId = 0;
-  const initialValue = [
-    {
-      id: lastId++,
-      name: "",
-      phoneNumber: "",
-      price: "",
-      propertySize: "",
-      level: "",
-      description: "",
-    },
-  ];
+  const initialValue = {
+    properties: [
+      {
+        name: "",
+        phoneNumber: "",
+        price: "",
+        propertySize: "",
+        description: "",
+        numberHandel: 1,
+      },
+    ],
+    total: 0,
+  };
 
   const [item, dispatch] = useReducer(ItemReducer, initialValue);
   return (
@@ -25,8 +26,8 @@ const ItemProvider = ({ children }) => {
     </ItemContext.Provider>
   );
 };
-export const useCategoryContext = () => useContext(ItemContext);
-export const useCategoryContextActions = () => {
+export const useItemContext = () => useContext(ItemContext);
+export const useItemContextActions = () => {
   return useContext(ItemContextDispatcher);
 };
 

@@ -55,6 +55,8 @@
   margin-bottom: 10px;
   font-size: 15px;
   font-weight: 550;
+  border-bottom: 3px solid var(--second-color);
+  padding-bottom: 8px;
 }
 .category-length-badge {
   position: relative;
@@ -64,7 +66,7 @@
   width: 30px;
   height: 30px;
   font-size: 14px;
-  color: var(--main-color);
+  color: rgb(237, 165, 165);
 }
 .category-items-container {
   width: 70%;
