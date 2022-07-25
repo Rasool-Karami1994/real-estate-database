@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input";
 import { useItemContextActions } from "../../context/items-context/ItemProvider";
 import SelectComponent from "../../Components/SelectComponent";
-import { useCategoryContext } from "../../context/category-context/CategoryProvider";
+import CategoryProvider, {
+  useCategoryContext,
+} from "../../context/category-context/CategoryProvider";
 const validationSchema = Yup.object({
   name: Yup.string().required("نام را وارد کنید"),
   phoneNumber: Yup.string()
@@ -15,12 +17,11 @@ const validationSchema = Yup.object({
   propertySize: Yup.string().required("متراژ را وارد کنید"),
   price: Yup.string().required("قیمت را وارد کنید"),
   description: Yup.string(),
-  selectedCategory: Yup.string().required("دسته بندی را انتخاب کنید"),
+  selectedCategory: Yup.string(),
 });
 
 const AddItem = () => {
   const { categories } = useCategoryContext();
-  console.log(categories);
   const options = categories.map((o) => {
     return { label: o.title, value: o.title };
   });
@@ -65,6 +66,11 @@ const AddItem = () => {
   return (
     <div className="page-container">
       <form onSubmit={formik.handleSubmit}>
+        {categories.length < 1 ? (
+          <h4 className="warning">لطفا ابتدا دسته بندی جدیدی را ایجاد کنید</h4>
+        ) : (
+          ""
+        )}
         <h2 className="form-h2"> وارد کردن ملک جدید</h2>
         <p className="form-text">لطفا اطلاعات ملک را وارد کنید</p>
 
@@ -84,12 +90,23 @@ const AddItem = () => {
           type="number"
         />
         <Input label="توضیحات" name="description" formik={formik} type="text" />
-        <SelectComponent
-          id="select-input-field"
-          formik={formik}
-          name="selectedCategory"
-          options={options}
-        />
+
+        {options.length < 2 ? (
+          <Input
+            label="نام دسته بندی را وارد کنید"
+            name="selectedCategory"
+            formik={formik}
+            type="text"
+          />
+        ) : (
+          <SelectComponent
+            id="select-input-field"
+            formik={formik}
+            name="selectedCategory"
+            options={options}
+          />
+        )}
+
         <button
           type="submit"
           disabled={!formik.isValid}

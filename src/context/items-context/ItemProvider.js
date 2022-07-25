@@ -6,12 +6,12 @@ const ItemProvider = ({ children }) => {
   const initialValue = {
     properties: [
       {
-        name: "",
-        phoneNumber: "",
-        price: "",
-        propertySize: "",
-        description: "",
-        numberHandel: 1,
+        // name: "",
+        // phoneNumber: "",
+        // price: "",
+        // propertySize: "",
+        // description: "",
+        // numberHandel: "",
       },
     ],
     total: 0,

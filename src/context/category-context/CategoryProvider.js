@@ -4,17 +4,12 @@ const CategoryContext = createContext();
 const CategoryContextDispatcher = createContext();
 const CategoryProvider = ({ children }) => {
   const initialValue = {
-    categories: [
-      {
-        numberHandel: 1,
-        title: "همه",
-      },
-    ],
-    total: 1,
+    categories: [],
+    total: 0,
   };
-  // const [categories, setcategories] = useState([]);
-  // console.log(categories);
+
   const [category, dispatch] = useReducer(CategoryReducer, initialValue);
+
   return (
     <CategoryContext.Provider value={category}>
       <CategoryContextDispatcher.Provider value={dispatch}>

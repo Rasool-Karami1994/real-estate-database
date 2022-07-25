@@ -4,8 +4,11 @@ import { GoPlus } from "react-icons/go";
 
 import "./SideBar.css";
 import { useCategoryContext } from "../../context/category-context/CategoryProvider";
+import { useItemContext } from "../../context/items-context/ItemProvider";
 const SideBar = () => {
   const { categories, total } = useCategoryContext();
+  const { properties } = useItemContext();
+
   return (
     <div className="side-bar-container">
       <button className="side-bar-btn">
@@ -32,7 +35,13 @@ const SideBar = () => {
         {categories.map((category) => (
           <div className="side-bar-category-box" key={category.title}>
             <div className="side-bar-category-items">
-              <p>10</p>
+              <p>
+                {
+                  properties.filter(
+                    (item) => item.selectedCategory === category.title
+                  ).length
+                }
+              </p>
               <p>{category.title}</p>
             </div>
           </div>

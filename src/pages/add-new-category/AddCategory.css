@@ -109,3 +109,21 @@ span {
   border-radius: 8px;
   border: 1px solid var(--main-color);
 }
+.warning {
+  color: #fa60a5;
+  opacity: 0.5;
+  margin: 30px 0;
+  animation-name: example;
+  animation-duration: 4s;
+  transform: scale(0.9);
+}
+@keyframes example {
+  from {
+    transform: scale(0.9);
+    color: #f5918e;
+  }
+  to {
+    color: #f84343;
+    transform: scale(0.96);
+  }
+}

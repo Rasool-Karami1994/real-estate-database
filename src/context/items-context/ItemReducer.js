@@ -20,6 +20,20 @@ const CategoryReducer = (state, action) => {
         total: state.total + action.payload.numberHandel,
       };
     }
+    case "REMOVE_PROPERTIES": {
+      console.log(state, action);
+
+      const propertyItems = [...state.properties];
+      const filteredProperty = propertyItems.filter(
+        (item) => item.name !== action.payload.name
+      );
+
+      return {
+        ...state,
+        properties: filteredProperty,
+        total: state.total - action.payload.numberHandel,
+      };
+    }
 
     default:
       return state;
