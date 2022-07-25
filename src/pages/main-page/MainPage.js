@@ -5,23 +5,60 @@ import {
 import "./MainPage.css";
 import { MdDelete } from "react-icons/md";
 import { AiFillCaretDown } from "react-icons/ai";
+import { AiFillCaretUp } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
-// import { CgSearch } from "react-icons/cg";
 const MainPage = () => {
   const dispatch = useItemContextActions();
+  const { properties } = useItemContext();
+  const [isShow, setIsShow] = useState();
+  const [searchValue, setSearchValue] = useState("");
+
   const changeHandler = (e) => {
     console.log(e.target.value);
+    setSearchValue(e.target.value);
+    dispatch({
+      type: "FILTER_PROPERTIES",
+      payload: {
+        name: searchValue,
+        phoneNumber: "",
+        price: "",
+        propertySize: "",
+        selectedCategory: "",
+        description: "",
+        numberHandel: 1,
+      },
+    });
   };
+
   const deleteHandler = (item) => {
     dispatch({ type: "REMOVE_PROPERTIES", payload: item });
+    toast.success(`${item.name} حذف شد`);
   };
-  const { properties } = useItemContext();
+
+  const showDetailes = () => {
+    setIsShow(true);
+  };
+  const unShowDetailes = () => {
+    setIsShow(false);
+  };
+  // useEffect(() => {
+  //   const savedProperties =
+  //     JSON.parse(localStorage.getItem("properties")) || [];
+  //   console.log(savedProperties);
+  //   dispatch({
+  //     type: "LOAD_PROPERTIES",
+  //     payload: { properties: savedProperties },
+  //   });
+  // }, []);
   return (
     <div className="main-page-container">
       <input
         className="search-box"
         type="text"
         onChange={changeHandler}
+        value={searchValue}
         placeholder="دنبال مورد خاصی هستی؟"
       ></input>
       <div className="property-container">
@@ -46,7 +83,7 @@ const MainPage = () => {
                 )}
 
                 {!item.name ? (
-                  <p className="item-titles">حذف</p>
+                  ""
                 ) : (
                   <button
                     className="item-btn-delete"
@@ -56,11 +93,28 @@ const MainPage = () => {
                   </button>
                 )}
                 {!item.name ? (
-                  <p className="item-titles">جزئیات</p>
+                  <p className="item-titles">
+                    جزئیات
+                    {!isShow ? (
+                      <button className="item-btn" onClick={showDetailes}>
+                        <span>
+                          <AiFillCaretDown />
+                        </span>
+                      </button>
+                    ) : (
+                      <button className="item-btn" onClick={unShowDetailes}>
+                        <span>
+                          <AiFillCaretUp />
+                        </span>
+                      </button>
+                    )}
+                  </p>
                 ) : (
-                  <button className="item-btn">
-                    <AiFillCaretDown />
-                  </button>
+                  isShow && (
+                    <div className="description-preview">
+                      {item.description}
+                    </div>
+                  )
                 )}
               </div>
             ))}

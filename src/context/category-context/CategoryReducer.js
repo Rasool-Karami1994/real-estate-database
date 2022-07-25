@@ -21,6 +21,18 @@ const CategoryReducer = (state, action) => {
       };
     }
 
+    // case "LOAD_CATEGORIES": {
+    //   console.log(state, action);
+    //   const categoryItems = [...state.categories];
+    //   categoryItems.push({ ...action.payload });
+
+    //   return {
+    //     ...state,
+    //     categories: categoryItems,
+    //     total: categoryItems.length - 1,
+    //   };
+    // }
+
     default:
       return state;
   }

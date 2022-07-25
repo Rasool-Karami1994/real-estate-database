@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "./AddCategory.css";
 import Input from "../../Components/Input";
 import { useCategoryContextActions } from "../../context/category-context/CategoryProvider";
+import { IoIosArrowBack } from "react-icons/io";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("عنوان الزامیست!"),
@@ -15,6 +16,9 @@ const AddCategory = () => {
   const initialValues = {
     numberHandel: 1,
     title: "",
+  };
+  const redirector = () => {
+    navigate("/");
   };
   const navigate = useNavigate();
   const dispatch = useCategoryContextActions();
@@ -47,6 +51,9 @@ const AddCategory = () => {
 
   return (
     <div className="page-container">
+      <button onClick={redirector} className="back-button">
+        <IoIosArrowBack />
+      </button>
       <form onSubmit={formik.handleSubmit}>
         <h2 className="form-h2"> ایجاد دسته بندی جدید</h2>
         <p className="form-text">لطفا عنوان دسته بندی را وارد کنید</p>

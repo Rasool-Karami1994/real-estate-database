@@ -115,11 +115,11 @@ span {
   margin: 30px 0;
   animation-name: example;
   animation-duration: 4s;
-  transform: scale(0.9);
+  transform: scale(0.8);
 }
 @keyframes example {
   from {
-    transform: scale(0.9);
+    transform: scale(0.8);
     color: #f5918e;
   }
   to {

@@ -1,8 +1,15 @@
-import React, { useContext, createContext, useReducer } from "react";
+import React, {
+  useContext,
+  createContext,
+  useReducer,
+  useEffect,
+  useState,
+} from "react";
 import CategoryReducer from "./CategoryReducer";
 const CategoryContext = createContext();
 const CategoryContextDispatcher = createContext();
 const CategoryProvider = ({ children }) => {
+  const [categories, setCategories] = useState([]);
   const initialValue = {
     categories: [],
     total: 0,

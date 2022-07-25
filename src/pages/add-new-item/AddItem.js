@@ -1,14 +1,13 @@
-import React from "react";
 import * as Yup from "yup";
+import { IoIosArrowBack } from "react-icons/io";
+
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input";
 import { useItemContextActions } from "../../context/items-context/ItemProvider";
 import SelectComponent from "../../Components/SelectComponent";
-import CategoryProvider, {
-  useCategoryContext,
-} from "../../context/category-context/CategoryProvider";
+import { useCategoryContext } from "../../context/category-context/CategoryProvider";
 const validationSchema = Yup.object({
   name: Yup.string().required("نام را وارد کنید"),
   phoneNumber: Yup.string()
@@ -17,11 +16,18 @@ const validationSchema = Yup.object({
   propertySize: Yup.string().required("متراژ را وارد کنید"),
   price: Yup.string().required("قیمت را وارد کنید"),
   description: Yup.string(),
-  selectedCategory: Yup.string(),
+  selectedCategory: Yup.string().required(
+    "لطفا ابتدا دسته بندی را ایجاد و سپس انتخاب کنید"
+  ),
 });
 
 const AddItem = () => {
   const { categories } = useCategoryContext();
+  const navigate = useNavigate();
+
+  const redirector = () => {
+    navigate("/");
+  };
   const options = categories.map((o) => {
     return { label: o.title, value: o.title };
   });
@@ -34,7 +40,6 @@ const AddItem = () => {
     description: "",
     numberHandel: 1,
   };
-  const navigate = useNavigate();
   const dispatch = useItemContextActions();
 
   const onSubmit = (values) => {
@@ -50,7 +55,7 @@ const AddItem = () => {
     }
     console.log(values);
     dispatch({ type: "ADD_TO_PROPERTIES", payload: values });
-    toast.success(`${values.title} اضافه شد`);
+    toast.success(`${values.name} اضافه شد`);
     addItemToLocalStorage();
     navigate("/");
   };
@@ -65,6 +70,9 @@ const AddItem = () => {
 
   return (
     <div className="page-container">
+      <button onClick={redirector} className="back-button">
+        <IoIosArrowBack />
+      </button>
       <form onSubmit={formik.handleSubmit}>
         {categories.length < 1 ? (
           <h4 className="warning">لطفا ابتدا دسته بندی جدیدی را ایجاد کنید</h4>

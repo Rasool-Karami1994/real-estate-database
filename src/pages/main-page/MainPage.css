@@ -43,7 +43,7 @@
 
 .item-titles {
   opacity: 0.5;
-  font-size: 14px;
+  font-size: 18px;
 }
 .item-btn {
   border: none;
@@ -51,6 +51,9 @@
   background-color: #fff;
   cursor: pointer;
   font-size: 16px;
+}
+.item-btn span {
+  margin-right: 5px;
 }
 .item-btn-delete {
   border: none;
@@ -69,6 +72,21 @@
   display: none;
 }
 .item-details {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.description-preview {
+  display: block;
+  padding: 10px;
+  margin: 10px 0;
+  max-width: 15%;
+  overflow-y: scroll;
+  max-height: 120px;
+}
+.description-preview::-webkit-scrollbar {
+  display: none;
+}
+.description-preview {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
