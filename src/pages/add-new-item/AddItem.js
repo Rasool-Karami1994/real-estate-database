@@ -2,7 +2,6 @@ import * as Yup from "yup";
 import { IoIosArrowBack } from "react-icons/io";
 
 import { useFormik } from "formik";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input";
 import { useItemContextActions } from "../../context/items-context/ItemProvider";
@@ -28,9 +27,11 @@ const AddItem = () => {
   const redirector = () => {
     navigate("/");
   };
-  const options = categories.map((o) => {
-    return { label: o.title, value: o.title };
-  });
+  const options = [{ label: "دسته بندی را انتخاب کنید", value: "" }].concat(
+    categories.map((o) => {
+      return { label: o.title, value: o.title };
+    })
+  );
   const initialValues = {
     name: "",
     phoneNumber: "",
@@ -44,18 +45,14 @@ const AddItem = () => {
 
   const onSubmit = (values) => {
     function addItemToLocalStorage() {
-      // Parse any JSON previously stored in allEntries
       var existingEntries = JSON.parse(localStorage.getItem("properties"));
       if (existingEntries == null) existingEntries = [];
 
-      localStorage.setItem("properties", JSON.stringify(values));
-      // Save allEntries back to local storage
       existingEntries.push(values);
       localStorage.setItem("properties", JSON.stringify(existingEntries));
     }
     console.log(values);
     dispatch({ type: "ADD_TO_PROPERTIES", payload: values });
-    toast.success(`${values.name} اضافه شد`);
     addItemToLocalStorage();
     navigate("/");
   };

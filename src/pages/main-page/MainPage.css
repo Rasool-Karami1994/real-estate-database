@@ -26,7 +26,6 @@
   padding: 15px;
   margin: 0;
   border-radius: 10px;
-  /* border: 1px solid rgb(230, 228, 228); */
   position: relative;
   left: -10%;
 }
@@ -40,10 +39,23 @@
   padding-bottom: 25px;
   width: 100%;
 }
+.property-items-title {
+  display: flex;
+  border-bottom: 1px solid rgb(230, 228, 228);
+  padding: 10px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 25px;
+  width: 50%;
+  opacity: 0.5;
+  position: relative;
+  left: -10%;
+}
 
 .item-titles {
-  opacity: 0.5;
   font-size: 18px;
+  margin-right: 15px;
 }
 .item-btn {
   border: none;
@@ -89,4 +101,12 @@
 .description-preview {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+.filter-options select {
+  border: none;
+  border-radius: none;
+}
+.filter-options select:focus {
+  border: none;
+  border-radius: none;
 }

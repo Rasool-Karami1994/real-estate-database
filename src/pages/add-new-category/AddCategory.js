@@ -1,7 +1,6 @@
 import React from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "./AddCategory.css";
 import Input from "../../Components/Input";
@@ -36,7 +35,6 @@ const AddCategory = () => {
     }
     console.log(values);
     dispatch({ type: "ADD_TO_CATEGORIES", payload: values });
-    toast.success(`${values.title} اضافه شد`);
     addCategoryToLocalStorage();
     navigate("/");
   };
