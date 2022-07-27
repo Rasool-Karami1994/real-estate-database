@@ -35,24 +35,6 @@ const CategoryReducer = (state, action) => {
       };
     }
 
-    // case "FILTER_PROPERTIES": {
-
-    //   const propertyItems = [...state.properties];
-    //   if (action.payload.name === "") {
-    //     return state;
-    //   } else {
-    //     const filteredProperty = propertyItems.filter((item) =>
-    //       item.name
-    //         .trim()
-    //         .toLowerCase()
-    //         .includes(action.payload.name.trim().toLowerCase())
-    //     );
-    //     return {
-    //       ...state,
-    //       properties: filteredProperty,
-    //     };
-    //   }
-    // }
     case "LOAD_PROPERTIES": {
       return {
         properties: [...action.payload.properties],
