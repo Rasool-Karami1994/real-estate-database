@@ -22,7 +22,6 @@ const CategoryReducer = (state, action) => {
     }
 
     case "LOAD_CATEGORIES": {
-      console.log(state, action);
       return {
         categories: [...action.payload.categories],
         total: action.payload.categories.length ,

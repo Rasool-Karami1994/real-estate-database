@@ -8,7 +8,9 @@ import { AiFillCaretDown } from "react-icons/ai";
 import { AiFillCaretUp } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+import { HiMenu } from "react-icons/hi";
 import { useCategoryContext } from "../../context/category-context/CategoryProvider";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const dispatch = useItemContextActions();
@@ -17,6 +19,7 @@ const MainPage = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectOptionValue, setSelectOptionValue] = useState("");
   const { categories } = useCategoryContext();
+  const navigate = useNavigate();
 
   const getFilteredProperties = () => {
     return properties
@@ -32,6 +35,9 @@ const MainPage = () => {
   };
   const changeHandler = (e) => {
     setSearchValue(e.target.value);
+  };
+  const menuHandler = () => {
+    navigate("/sidebarmenu");
   };
 
   const selectOptionHandler = (e) => {
@@ -65,107 +71,118 @@ const MainPage = () => {
       type: "LOAD_PROPERTIES",
       payload: { properties: savedProperties },
     });
-  });
+  }, []);
   return (
     <div className="main-page-container">
-      <input
-        className="search-box"
-        type="text"
-        onChange={changeHandler}
-        value={searchValue}
-        placeholder="دنبال مورد خاصی هستی؟"
-      ></input>
-      <div className="property-items-title">
-        <div className="filter-options">
-          <select
-            name="filter"
-            id="filter-select"
-            onChange={selectOptionHandler}
+      <div className="main-page-container">
+        <div className="first-section-container">
+          <button
+            className="hum-menu-btn"
+            title="برای باز شدن منو کلیک کنید"
+            onClick={menuHandler}
           >
-            {filterOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+            <HiMenu />
+          </button>
+          <input
+            className="search-box"
+            type="text"
+            onChange={changeHandler}
+            value={searchValue}
+            placeholder="دنبال مورد خاصی هستی؟"
+          ></input>
         </div>
-      </div>
-      <div className="property-container"></div>
-      <div className="property-items-title">
-        <p className="item-titles">عنوان</p>
-        <p className="item-titles">قیمت</p>
-        <p className="item-titles">دسته بندی</p>
+        <div className="property-items-title">
+          <div className="filter-options">
+            <select
+              name="filter"
+              id="filter-select"
+              onChange={selectOptionHandler}
+            >
+              {filterOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="property-container"></div>
+        <div className="property-items-title">
+          <p className="item-titles">عنوان</p>
+          <p className="item-titles">قیمت</p>
+          <p className="item-titles">دسته بندی</p>
 
-        <p className="item-titles">
-          جزئیات
-          {!isShow ? (
-            <button className="item-btn" onClick={showDetailes}>
-              <span>
-                <AiFillCaretDown />
-              </span>
-            </button>
-          ) : (
-            <button className="item-btn" onClick={unShowDetailes}>
-              <span>
-                <AiFillCaretUp />
-              </span>
-            </button>
-          )}
-        </p>
-      </div>
-      <div className="property-container">
-        {getFilteredProperties().map((item, index) => (
-          <div key={index} className="property-items">
-            {!item.name ? (
-              <p className="item-titles">عنوان</p>
+          <p className="item-titles">
+            جزئیات
+            {!isShow ? (
+              <button className="item-btn" onClick={showDetailes}>
+                <span>
+                  <AiFillCaretDown />
+                </span>
+              </button>
             ) : (
-              <p className="item-details">{item.name}</p>
-            )}
-            {!item.name ? (
-              <p className="item-titles">قیمت</p>
-            ) : (
-              <p className="item-details">{item.price} </p>
-            )}
-            {!item.name ? (
-              <p className="item-titles">قیمت</p>
-            ) : (
-              <p className="item-details">{item.selectedCategory}</p>
-            )}
-
-            {!item.name ? (
-              ""
-            ) : (
-              <button
-                className="item-btn-delete"
-                onClick={() => deleteHandler(item)}
-              >
-                <MdDelete />
+              <button className="item-btn" onClick={unShowDetailes}>
+                <span>
+                  <AiFillCaretUp />
+                </span>
               </button>
             )}
-            {!item.name ? (
-              <p className="item-titles">
-                جزئیات
-                {!isShow ? (
-                  <button className="item-btn" onClick={showDetailes}>
-                    <span>
-                      <AiFillCaretDown />
-                    </span>
-                  </button>
-                ) : (
-                  <button className="item-btn" onClick={unShowDetailes}>
-                    <span>
-                      <AiFillCaretUp />
-                    </span>
-                  </button>
-                )}
-              </p>
-            ) : (
-              isShow && (
-                <div className="description-preview">{item.description}</div>
-              )
-            )}
-          </div>
-        ))}
+          </p>
+        </div>
+        <div className="property-container">
+          {getFilteredProperties().map((item, index) => (
+            <div key={index} className="property-items">
+              {!item.name ? (
+                <p className="item-titles">عنوان</p>
+              ) : (
+                <p className="item-details">{item.name}</p>
+              )}
+              {!item.name ? (
+                <p className="item-titles">قیمت</p>
+              ) : (
+                <p className="item-details">{item.price} </p>
+              )}
+              {!item.name ? (
+                <p className="item-titles">قیمت</p>
+              ) : (
+                <p className="item-details">{item.selectedCategory}</p>
+              )}
+
+              {!item.name ? (
+                ""
+              ) : (
+                <button
+                  className="item-btn-delete"
+                  onClick={() => deleteHandler(item)}
+                >
+                  <MdDelete />
+                </button>
+              )}
+              {!item.name ? (
+                <p className="item-titles">
+                  جزئیات
+                  {!isShow ? (
+                    <button className="item-btn" onClick={showDetailes}>
+                      <span>
+                        <AiFillCaretDown />
+                      </span>
+                    </button>
+                  ) : (
+                    <button className="item-btn" onClick={unShowDetailes}>
+                      <span>
+                        <AiFillCaretUp />
+                      </span>
+                    </button>
+                  )}
+                </p>
+              ) : (
+                isShow && (
+                  <div className="description-preview">{item.description}</div>
+                )
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

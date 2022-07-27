@@ -35,30 +35,28 @@ const CategoryReducer = (state, action) => {
       };
     }
 
-    case "FILTER_PROPERTIES": {
-      console.log(action.payload);
-      
-      const propertyItems = [...state.properties];
-      if (action.payload.name === "") {
-        return state;
-      } else {
-        const filteredProperty = propertyItems.filter((item) =>
-          item.name
-            .trim()
-            .toLowerCase()
-            .includes(action.payload.name.trim().toLowerCase())
-        );
-        return {
-          ...state,
-          properties: filteredProperty,
-        };
-      }
-    }
+    // case "FILTER_PROPERTIES": {
+
+    //   const propertyItems = [...state.properties];
+    //   if (action.payload.name === "") {
+    //     return state;
+    //   } else {
+    //     const filteredProperty = propertyItems.filter((item) =>
+    //       item.name
+    //         .trim()
+    //         .toLowerCase()
+    //         .includes(action.payload.name.trim().toLowerCase())
+    //     );
+    //     return {
+    //       ...state,
+    //       properties: filteredProperty,
+    //     };
+    //   }
+    // }
     case "LOAD_PROPERTIES": {
-      console.log(state, action);
       return {
         properties: [...action.payload.properties],
-        total: action.payload.properties.length - 1,
+        total: action.payload.properties.length,
       };
     }
 

@@ -7,14 +7,24 @@
   align-items: center;
   direction: rtl;
 }
-.search-box {
+
+.first-section-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 50%;
+}
+.search-box {
+  width: 100%;
   padding: 15px;
   margin: 50px 0;
   border-radius: 10px;
   border: 1px solid rgb(230, 228, 228);
   position: relative;
-  left: -10%;
+  left: -21%;
+}
+.hum-menu-btn {
+  display: none;
 }
 .property-container {
   display: flex;
@@ -109,4 +119,79 @@
 .filter-options select:focus {
   border: none;
   border-radius: none;
+}
+@media only screen and (max-width: 1000px) {
+  .first-section-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+  }
+  .hum-menu-btn {
+    display: flex;
+    background-color: #fff;
+    border: none;
+    outline: none;
+    font-size: 28px;
+    width: 15%;
+    margin-right: 5%;
+    cursor: pointer;
+  }
+  .search-box {
+    width: 80%;
+    padding: 15px;
+    margin: 50px 0;
+    border-radius: 10px;
+    border: 1px solid rgb(230, 228, 228);
+    position: relative;
+    left: 0;
+  }
+  .property-container {
+    display: flex;
+    direction: rtl;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+    padding: 15px;
+    margin: 0;
+    border-radius: 10px;
+    position: relative;
+    left: 0;
+  }
+  .property-items-title {
+    display: flex;
+    border-bottom: 1px solid rgb(230, 228, 228);
+    padding: 10px;
+    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 25px;
+    width: 80%;
+    opacity: 0.5;
+    position: relative;
+    left: 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .search-box {
+    width: 70%;
+    padding: 15px;
+    margin: 50px 0;
+    border-radius: 10px;
+    border: 1px solid rgb(230, 228, 228);
+    position: relative;
+    left: 0;
+  }
+  .property-container {
+    font-size: 10px;
+  }
+  .property-items-title {
+    font-size: 12px;
+  }
+  .item-titles {
+    font-size: 13px;
+    margin-right: 15px;
+  }
 }

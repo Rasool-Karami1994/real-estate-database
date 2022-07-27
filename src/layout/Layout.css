@@ -3,3 +3,12 @@
   height: 100vh;
   display: flex;
 }
+@media only screen and (max-width: 1000px) {
+  .app-layout {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

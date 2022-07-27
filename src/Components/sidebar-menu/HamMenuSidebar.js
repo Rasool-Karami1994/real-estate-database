@@ -1,17 +1,23 @@
+import "./HamMenuSidebar.css";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
+import { IoIosCloseCircle } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
-import "./SideBar.css";
 import {
   useCategoryContext,
   useCategoryContextActions,
 } from "../../context/category-context/CategoryProvider";
 import { useItemContext } from "../../context/items-context/ItemProvider";
-const SideBar = () => {
+
+const HamMenuSidebar = (setSidebarMenuShow) => {
   const { categories, total } = useCategoryContext();
   const { properties } = useItemContext();
   const dispatch = useCategoryContextActions();
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     const savedProperties = JSON.parse(localStorage.getItem("category")) || [];
     dispatch({
@@ -19,9 +25,20 @@ const SideBar = () => {
       payload: { categories: savedProperties },
     });
   }, []);
+  const closeMenuHandler = () => {
+    navigate("/");
+  };
 
   return (
-    <div className="side-bar-container">
+    <div className="menu-side-bar-container">
+      <div className="close-section">
+        <button className="menu-close-btn" onClick={closeMenuHandler}>
+          <span>
+            <IoIosCloseCircle />
+            بستن
+          </span>
+        </button>
+      </div>
       <button className="side-bar-btn">
         <Link to="/addcategory">
           <span className="side-bar-span">
@@ -38,7 +55,7 @@ const SideBar = () => {
           ثبت ملک جدید
         </Link>
       </button>
-      <div className="sidebar-title-container ">
+      <div className="sidebar-title-container">
         <h4 className="side-bar-text">دسته بندی ها</h4>
         <span className="category-length-badge">{total}</span>
       </div>
@@ -62,4 +79,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default HamMenuSidebar;
