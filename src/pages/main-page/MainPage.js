@@ -18,11 +18,18 @@ const MainPage = () => {
   const [isShow, setIsShow] = useState();
   const [searchValue, setSearchValue] = useState("");
   const [selectOptionValue, setSelectOptionValue] = useState("");
+  const [priceSelectOptionValue, setPriceSelectOptionValue] = useState("");
   const { categories } = useCategoryContext();
   const navigate = useNavigate();
 
   const getFilteredProperties = () => {
     return properties
+      .filter((p) =>
+        priceSelectOptionValue === "" ||
+        priceSelectOptionValue === "mostExpensive"
+          ? properties.sort((a, b) => parseFloat(b.price) - parseFloat(a.price))
+          : properties.sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
+      )
       .filter(
         (p) =>
           selectOptionValue === "" || selectOptionValue === p.selectedCategory
@@ -43,6 +50,9 @@ const MainPage = () => {
   const selectOptionHandler = (e) => {
     setSelectOptionValue(e.target.value);
   };
+  const priceSelectOptionHandler = (e) => {
+    setPriceSelectOptionValue(e.target.value);
+  };
 
   const deleteHandler = (item) => {
     dispatch({ type: "REMOVE_PROPERTIES", payload: item });
@@ -56,12 +66,24 @@ const MainPage = () => {
     setIsShow(false);
   };
 
-  const filterOptions = [
+  const CategoryFilterOptions = [
     { label: "فیلتر براساس دسته بندی ها", value: "" },
   ].concat(
     categories.map((o) => {
       return { label: o.title, value: o.title };
     })
+  );
+  const PriceFilterOptions = [{ label: "فیلتر براساس قیمت", value: "" }].concat(
+    [
+      {
+        label: "گرانترین",
+        value: "mostExpensive",
+      },
+      {
+        label: "ارزانترین",
+        value: "cheapest",
+      },
+    ]
   );
 
   useEffect(() => {
@@ -98,7 +120,19 @@ const MainPage = () => {
               id="filter-select"
               onChange={selectOptionHandler}
             >
-              {filterOptions.map((option) => (
+              {CategoryFilterOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            <select
+              className="second-select-option"
+              name="filter"
+              id="filter-select"
+              onChange={priceSelectOptionHandler}
+            >
+              {PriceFilterOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
